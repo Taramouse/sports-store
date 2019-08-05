@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div v-for="p in products"
          v-bind:key="p.id"
          class="card m-1 p-1 bg-light">
@@ -14,6 +14,7 @@
     <page-controls />
   </div>
 </template>
+
 <script>
 import { mapGetters } from 'vuex'
 import PageControls from '@/components/PageControls'
