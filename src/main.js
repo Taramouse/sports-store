@@ -7,6 +7,10 @@ import 'font-awesome/css/font-awesome.min.css'
 
 Vue.config.productionTip = false
 
+Vue.filter('currency', (value) => new Intl.NumberFormat('en-US', {
+  style: 'currency', currency: 'USD'
+}).format(value))
+
 new Vue({
   router,
   store,
