@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-3 bg-info p-2">
-        <h4 class="text-white m-2">Categories</h4>
+        <CategoryControls />
       </div>
       <div class="col-9 p-2">
         <product-list />
@@ -17,10 +17,11 @@
 </template>
 <script>
 import ProductList from '@/components/ProductList.vue'
+import CategoryControls from '@/components/CategoryControls'
 
 export default {
   name: 'Store',
-  components: { ProductList },
+  components: { ProductList, CategoryControls },
   data () {
     return {}
   }
