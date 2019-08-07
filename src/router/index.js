@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import dataStore from '@/store'
 import Home from '@/views/Home.vue'
 import ShoppingCart from '@/views/ShoppingCart'
 import Checkout from '@/views/Checkout'
 import OrderThanks from '@/views/OrderThanks'
 import Authentication from '@/views/admin/Authentication'
 import Admin from '@/views/admin/Admin'
-import dataStore from '@/store'
+import ProductAdmin from '@/views/admin/ProductAdmin'
+import OrderAdmin from '@/views/admin/OrderAdmin'
 
 Vue.use(Router)
 
@@ -44,7 +46,6 @@ export default new Router({
     },
     {
       path: '/admin',
-      name: 'Admin',
       component: Admin,
       beforeEnter (to, from, next) {
         if (dataStore.state.auth.authenticated) {
@@ -52,7 +53,23 @@ export default new Router({
         } else {
           next('/login')
         }
-      }
+      },
+      children: [
+        {
+          path: 'orders',
+          name: 'OrderAdmin',
+          component: OrderAdmin
+        },
+        {
+          path: 'products',
+          name: 'ProductAdmin',
+          component: ProductAdmin
+        },
+        {
+          path: '',
+          redirect: 'admin/products'
+        }
+      ]
     }
   ]
 })
