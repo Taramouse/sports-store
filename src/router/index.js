@@ -67,7 +67,7 @@ export default new Router({
         },
         {
           path: '',
-          redirect: 'admin/products'
+          redirect: '/admin/products'
         }
       ]
     }
