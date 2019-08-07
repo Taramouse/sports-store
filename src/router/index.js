@@ -30,7 +30,7 @@ export default new Router({
       component: Checkout
     },
     {
-      path: '/orderthanks/:id',
+      path: '/thanks/:id',
       name: 'OrderThanks',
       component: OrderThanks
     }
