@@ -1,6 +1,7 @@
 <template>
   <div class="row mt-2">
     <div class="text-center col-sm-12 col-md-3 form-group">
+      <!-- TODO: Make this a dropdown button -->
       <select class="form-control"
               v-on:change="changePageSize">
         <option value="4">4 per page</option>
@@ -11,7 +12,7 @@
     <div class="text-center col-sm-12 col-md-9">
       <button v-bind:disabled="currentPage == 1"
               v-on:click="setCurrentPage(currentPage - 1)"
-              class="btn btn-sm btn-secondary mx -1">Previous</button>
+              class="btn btn-sm btn-secondary mx -1">&lt;</button>
       <span v-if="currentPage > 4">
         <button v-on:click="setCurrentPage(1)"
                 class="btn btn-sm btn-secondary mx-1">1</button>
@@ -31,7 +32,7 @@
       </span>
       <button v-bind:disabled="currentPage == pageCount"
               v-on:click="setCurrentPage(currentPage + 1)"
-              class="btn btn-sm btn-secondary mx-1">Next</button>
+              class="btn btn-sm btn-secondary mx-1">&gt;</button>
     </div>
   </div>
 </template>
