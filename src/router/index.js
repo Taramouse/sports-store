@@ -6,6 +6,7 @@ import Checkout from '@/views/Checkout'
 import OrderThanks from '@/views/OrderThanks'
 import Authentication from '@/views/admin/Authentication'
 import Admin from '@/views/admin/Admin'
+import dataStore from '@/store'
 
 Vue.use(Router)
 
@@ -44,7 +45,14 @@ export default new Router({
     {
       path: '/admin',
       name: 'Admin',
-      component: Admin
+      component: Admin,
+      beforeEnter (to, from, next) {
+        if (dataStore.state.auth.authenticated) {
+          next()
+        } else {
+          next('/login')
+        }
+      }
     }
   ]
 })
