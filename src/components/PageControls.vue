@@ -1,42 +1,43 @@
 <template>
   <div class="row mt-2">
-    <div class="col-3 form-group">
+    <div class="text-center col-sm-12 col-md-3 form-group">
       <select class="form-control"
               v-on:change="changePageSize">
-        <option value="4">4 products</option>
-        <option value="8">8 products</option>
-        <option value="12">12 products</option>
+        <option value="4">4 per page</option>
+        <option value="8">8 per page</option>
+        <option value="12">12 per page</option>
       </select>
     </div>
-    <div class="col text-right">
+    <div class="text-center col-sm-12 col-md-9">
       <button v-bind:disabled="currentPage == 1"
               v-on:click="setCurrentPage(currentPage - 1)"
-              class="btn btn-secondary mx -1">Previous</button>
+              class="btn btn-sm btn-secondary mx -1">Previous</button>
       <span v-if="currentPage > 4">
         <button v-on:click="setCurrentPage(1)"
-                class="btn btn-secondary mx-1">1</button>
+                class="btn btn-sm btn-secondary mx-1">1</button>
         <span class="h4">...</span>
       </span>
       <span class="mx-1">
         <button v-for="i in pageNumbers"
                 v-bind:key="i"
-                class="btn btn-secpmdary"
+                class="btn btn-sm btn-secpmdary"
                 v-bind:class="{ 'btn-primary': i == currentPage }"
                 v-on:click="setCurrentPage(i)">{{ i }}</button>
       </span>
       <span v-if="currentPage <= pageCount - 4">
         <span class="h4">...</span>
         <button v-on:click="setCurrentPage(pageCount)"
-                class="btn btn-secondary mx-1">{{ pageCount}}</button>
+                class="btn btn-sm btn-secondary mx-1">{{ pageCount}}</button>
       </span>
       <button v-bind:disabled="currentPage == pageCount"
               v-on:click="setCurrentPage(currentPage + 1)"
-              class="btn btn-secondary mx-1">Next</button>
+              class="btn btn-sm btn-secondary mx-1">Next</button>
     </div>
   </div>
 </template>
+
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: {
@@ -51,13 +52,12 @@ export default {
         return [...Array(5).keys()].reverse()
           .map(v => this.pageCount - v)
       } else {
-        return [this.currentPage - 1, this.currentPage,
-          this.currentPage + 1]
+        return [this.currentPage - 1, this.currentPage, this.currentPage + 1]
       }
     }
   },
   methods: {
-    ...mapMutations(['setCurrentPage', 'setPageSize']),
+    ...mapActions(['setCurrentPage', 'setPageSize']),
     changePageSize ($event) {
       this.setPageSize(Number($event.target.value))
     }
