@@ -55,7 +55,7 @@ export default {
       if (!this.$v.$invalid) {
         await this.authenticate({ name: this.username, password: this.password })
         if (this.authenticated) {
-          this.$router.push({ name: 'Admin' })
+          this.$router.push('/admin/products')
         } else {
           this.showFailureMessage = true
         }
