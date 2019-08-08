@@ -9,6 +9,7 @@ import Authentication from '@/views/admin/Authentication'
 import Admin from '@/views/admin/Admin'
 import ProductAdmin from '@/views/admin/ProductAdmin'
 import OrderAdmin from '@/views/admin/OrderAdmin'
+import ProductEditor from '@/views/admin/ProductEditor'
 
 Vue.use(Router)
 
@@ -55,6 +56,11 @@ export default new Router({
         }
       },
       children: [
+        {
+          path: 'products/:op(create|edit)/:id(\\d+)?',
+          name: 'ProductEditor',
+          component: ProductEditor
+        },
         {
           path: 'orders',
           name: 'OrderAdmin',

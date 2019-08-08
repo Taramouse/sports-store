@@ -15,9 +15,7 @@ export default new Vuex.Store({
   strict: true,
   modules: { cart: CartModule, orders: OrdersModule, auth: AuthModule },
   state: {
-    // products: [],
     categoriesData: [],
-    // productsTotal: 0,
     currentPage: 1,
     pageSize: 4,
     currentCategory: 'All',
@@ -27,14 +25,15 @@ export default new Vuex.Store({
     showSearch: false
   },
   getters: {
-    // productsFilteredByCategory: state => state.products
-    //   .filter(p => state.currentCategory === 'All' ||
-    //     p.category === state.currentCategory),
     processedProducts: (state) => {
       return state.pages[state.currentPage]
     },
     pageCount: (state) => state.serverPageCount,
-    categories: state => ['All', ...state.categoriesData]
+    categories: state => ['All', ...state.categoriesData],
+    productById: (state) => (id) => {
+      // eslint-disable-next-line
+      return state.pages[state.currentPage].find(p => p.id == id)
+    }
   },
   mutations: {
     _setCurrentPage (state, page) {
@@ -48,11 +47,6 @@ export default new Vuex.Store({
       state.currentCategory = category
       state.currentPage = 1
     },
-    // setData (state, data) {
-    //   state.products = data.pdata
-    //   state.productsTotal = data.pdata.length
-    //   state.categoriesData = data.cdata.sort()
-    // }
     addPage (state, page) {
       for (let i = 0; i < page.pageCount; i++) {
         Vue.set(state.pages, page.number + i,
@@ -75,6 +69,15 @@ export default new Vuex.Store({
     setSearchTerm (state, term) {
       state.searchTerm = term
       state.currentPage = 1
+    },
+    _addProduct (state, product) {
+      state.pages[state.currentPage].unshift(product)
+    },
+    _updateProduct (state, product) {
+      let page = state.pages[state.currentPage]
+      // eslint-disable-next-line
+      let index = page.findIndex(p => p.id == product.id)
+      Vue.set(page, index, product)
     }
   },
   actions: {
@@ -124,6 +127,23 @@ export default new Vuex.Store({
       context.commit('setSearchTerm', '')
       context.commit('clearPages')
       context.dispatch('getPage', 2)
+    },
+    async addProduct (context, product) {
+      let data = (await context.getters.authenticatedAxios.post(productsUrl,
+        product)).data
+      product.id = data.id
+      this.commit('_addProduct', product)
+    },
+    async removeProduct (context, product) {
+      await context.getters.authenticatedAxios
+        .delete(`${productsUrl}/${product.id}`)
+      context.commit('clearPages')
+      context.dispatch('getPage', 1)
+    },
+    async updateProduct (context, product) {
+      await context.getters.authenticatedAxios
+        .put(`${productsUrl}/${product.id}`, product)
+      this.commit('_updateProduct', product)
     }
   }
 })
