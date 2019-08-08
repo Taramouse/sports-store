@@ -24,13 +24,15 @@
     "@vue/cli-service": "^3.10.0",
     "@vue/eslint-config-standard": "^4.0.0",
     "babel-eslint": "^10.0.1",
+    "connect-history-api-fallback": "1.5.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
-    "lint-staged": "^8.1.5",
-    "vue-template-compiler": "^2.6.10",
+    "express": "4.16.3",
+    "faker": "^4.1.0",
     "json-server": "^0.15.0",
     "jsonwebtoken": "^8.5.1",
-    "faker": "^4.1.0"
+    "lint-staged": "^8.1.5",
+    "vue-template-compiler": "^2.6.10"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

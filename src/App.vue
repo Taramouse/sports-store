@@ -5,7 +5,18 @@
 </template>
 
 <script>
-export default {
+import { mapActions } from 'vuex'
 
+export default {
+  methods: {
+    ...mapActions({
+      getData: 'getData',
+      initializeCart: 'cart/initializeCart'
+    })
+  },
+  created () {
+    this.getData()
+    this.initializeCart(this.$store)
+  }
 }
 </script>
