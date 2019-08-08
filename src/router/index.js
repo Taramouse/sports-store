@@ -5,11 +5,23 @@ import Home from '@/views/Home.vue'
 import ShoppingCart from '@/views/ShoppingCart'
 import Checkout from '@/views/Checkout'
 import OrderThanks from '@/views/OrderThanks'
-import Authentication from '@/views/admin/Authentication'
-import Admin from '@/views/admin/Admin'
-import ProductAdmin from '@/views/admin/ProductAdmin'
-import OrderAdmin from '@/views/admin/OrderAdmin'
-import ProductEditor from '@/views/admin/ProductEditor'
+
+// import Authentication from '@/views/admin/Authentication'
+// import Admin from '@/views/admin/Admin'
+// import ProductAdmin from '@/views/admin/ProductAdmin'
+// import OrderAdmin from '@/views/admin/OrderAdmin'
+// import ProductEditor from '@/views/admin/ProductEditor'
+
+const Authentication = () =>
+  import(/* webpackChunkName: "admin" */ '@/views/admin/Authentication')
+const Admin = () =>
+  import(/* webpackChunkName: "admin" */ '@/views/admin/Admin')
+const ProductAdmin = () =>
+  import(/* webpackChunkName: "admin" */ '@/views/admin/ProductAdmin')
+const OrderAdmin = () =>
+  import(/* webpackChunkName: "admin" */ '@/views/admin/OrderAdmin')
+const ProductEditor = () =>
+  import(/* webpackChunkName: "admin" */ '@/views/admin/ProductEditor')
 
 Vue.use(Router)
 
